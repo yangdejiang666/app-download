@@ -1,14 +1,22 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>APP下载</title>
     <style>
         /* Modern Reset & Base Styles */
-        * { box-sizing: border-box; margin: 0; padding: 0; }
-        body, html { 
-            width: 100%; height: 100%; 
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body,
+        html {
+            width: 100%;
+            height: 100%;
             font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", Arial, sans-serif;
             background-color: #f5f7fa;
             color: #333;
@@ -18,7 +26,8 @@
         /* 通用居中容器 */
         .container {
             position: absolute;
-            top: 50%; left: 50%;
+            top: 50%;
+            left: 50%;
             transform: translate(-50%, -50%);
             width: 100%;
             text-align: center;
@@ -26,69 +35,163 @@
 
         /* 微信遮罩层 - Glassmorphism */
         #weixin-mask {
-            display: none; 
-            position: fixed; top: 0; left: 0; right: 0; bottom: 0;
-            background: rgba(0, 0, 0, 0.92); 
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.92);
             z-index: 9999;
             backdrop-filter: blur(10px);
             -webkit-backdrop-filter: blur(10px);
             padding: 20px;
         }
+
         .arrow-svg {
-            position: absolute; top: 20px; right: 30px;
-            width: 60px; height: 80px;
-            fill: none; stroke: #ffbd2e; stroke-width: 4; stroke-linecap: round; stroke-linejoin: round;
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            width: 60px;
+            height: 80px;
+            fill: none;
+            stroke: #ffbd2e;
+            stroke-width: 4;
+            stroke-linecap: round;
+            stroke-linejoin: round;
             animation: bounce 2s infinite;
         }
+
         .guide-text {
-            margin-top: 140px; color: #fff; font-size: 18px; line-height: 1.8;
+            margin-top: 140px;
+            color: #fff;
+            font-size: 18px;
+            line-height: 1.8;
         }
 
         /* 移动端 Loading 状态 */
         #mobile-loading {
-            display: none; /* JS控制显示 */
-            flex-direction: column; align-items: center; justify-content: center;
+            display: none;
+            /* JS控制显示 */
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
         }
+
         .loader {
-            width: 40px; height: 40px;
-            border: 4px solid #e1e4e8; border-top-color: #007aff; border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            border: 4px solid #e1e4e8;
+            border-top-color: #007aff;
+            border-radius: 50%;
             animation: spin 1s linear infinite;
         }
-        .loading-text { margin-top: 20px; color: #666; font-size: 15px; }
+
+        .loading-text {
+            margin-top: 20px;
+            color: #666;
+            font-size: 15px;
+        }
 
         /* PC端展示页 */
         #pc-view {
-            display: none; /* JS控制显示 */
+            display: none;
+            /* JS控制显示 */
             background: #fff;
             padding: 40px;
             border-radius: 20px;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.08);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
             max-width: 400px;
             margin: 0 auto;
         }
-        #pc-view h1 { font-size: 24px; margin-bottom: 30px; color: #333; }
+
+        #pc-view h1 {
+            font-size: 24px;
+            margin-bottom: 30px;
+            color: #333;
+        }
+
         .qr-box {
-            width: 200px; height: 200px; 
-            background: #f0f2f5; 
+            width: 200px;
+            height: 200px;
+            background: #f0f2f5;
             margin: 0 auto 20px;
-            display: flex; align-items: center; justify-content: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             border-radius: 12px;
         }
-        .qr-box img { width: 100%; height: 100%; border-radius: 12px; }
-        .pc-tips { font-size: 14px; color: #888; margin-bottom: 30px; }
-        .btn-group { display: flex; gap: 10px; justify-content: center; }
-        .btn {
-            padding: 10px 20px; border-radius: 8px; text-decoration: none; font-size: 14px; font-weight: 600; transition: all 0.2s;
-        }
-        .btn-primary { background: #007aff; color: #fff; }
-        .btn-primary:hover { background: #005bb5; }
-        .btn-outline { border: 1px solid #ddd; color: #555; }
-        .btn-outline:hover { border-color: #999; color: #333; }
 
-        @keyframes bounce { 0%, 100% { transform: translate(0, 0); } 50% { transform: translate(10px, -10px); } }
-        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        .qr-box img {
+            width: 100%;
+            height: 100%;
+            border-radius: 12px;
+        }
+
+        .pc-tips {
+            font-size: 14px;
+            color: #888;
+            margin-bottom: 30px;
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 600;
+            transition: all 0.2s;
+        }
+
+        .btn-primary {
+            background: #007aff;
+            color: #fff;
+        }
+
+        .btn-primary:hover {
+            background: #005bb5;
+        }
+
+        .btn-outline {
+            border: 1px solid #ddd;
+            color: #555;
+        }
+
+        .btn-outline:hover {
+            border-color: #999;
+            color: #333;
+        }
+
+        @keyframes bounce {
+
+            0%,
+            100% {
+                transform: translate(0, 0);
+            }
+
+            50% {
+                transform: translate(10px, -10px);
+            }
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
     </style>
 </head>
+
 <body>
 
     <!-- 微信遮罩 -->
@@ -116,7 +219,7 @@
             <img src="download_qr.png" alt="请扫码下载" onerror="this.parentElement.innerText='请上传二维码图片命名为 download_qr.png'">
         </div>
         <p class="pc-tips">推荐使用手机浏览器或者微信扫码下载</p>
-        
+
         <div class="btn-group">
             <a href="#" id="pc-dl-android" class="btn btn-primary">下载 Android 包</a>
             <a href="#" id="pc-dl-ios" class="btn btn-outline" target="_blank">iOS Store</a>
@@ -126,13 +229,13 @@
     <script>
         // ================= 配置数据 =================
         var ANDROID_URL = "http://app.veepai.com/temp/%E6%98%9F%E6%B2%B3%E8%A7%86%E6%8E%A7-V1.0.1-202601260951.apk";
-        var IOS_URL     = "https://apps.apple.com/cn/app/id6755796341";
+        var IOS_URL = "https://apps.apple.com/cn/app/id6755796341";
         // ==========================================
 
         document.getElementById('pc-dl-android').href = ANDROID_URL;
         document.getElementById('pc-dl-ios').href = IOS_URL;
 
-        (function() {
+        (function () {
             var ua = navigator.userAgent.toLowerCase();
             // 设备检测
             var isWeixin = ua.indexOf('micromessenger') !== -1 || ua.indexOf('qq/') !== -1;
@@ -152,7 +255,7 @@
                 } else {
                     mobileLoading.style.display = 'flex';
                     // 延时跳转，体验更好
-                    setTimeout(function() {
+                    setTimeout(function () {
                         if (isIOS) {
                             window.location.href = IOS_URL;
                         } else {
@@ -174,4 +277,5 @@
         })();
     </script>
 </body>
+
 </html>
