@@ -157,9 +157,9 @@
             // 1. Detect Environment
             var isWeixin = ua.indexOf('micromessenger') !== -1 || ua.indexOf('qq/') !== -1;
             var isAndroid = ua.indexOf('android') !== -1 || ua.indexOf('adr') !== -1;
-            var isIOS = !!ua.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/);
+            var isIOS = /iphone|ipad|ipod/i.test(ua);
             // Strict Mobile check: Android/iOS or iPad(Mac-like but touch)
-            var isMobile = isAndroid || isIOS || (navigator.maxTouchPoints && navigator.maxTouchPoints > 2 && /macintosh/.test(ua));
+            var isMobile = isAndroid || isIOS || (navigator.maxTouchPoints && navigator.maxTouchPoints > 1 && /macintosh|mac os x/i.test(ua));
 
             // 2. DOM Elements
             var pcContainer = document.getElementById('pc-container');
